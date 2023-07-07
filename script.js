@@ -1,9 +1,11 @@
-let button = document.querySelector("#button");
+let button = document.createElement("button");
+let score = document.createElement("h2");
+let timer = document.createElement("h2");
+let promptParagraph = document.createElement("p");
+let choiceButton = document.createElement("button");
 
 
-let prompt = document.querySelector("#prompt");
-let choices = document.querySelector("#choices");
-let scoreline = document.querySelector("#scoreline");
+
 
 // The following function renders items in a todo list as <li> elements
 function renderPrompt() {

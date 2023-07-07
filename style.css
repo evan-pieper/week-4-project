@@ -17,3 +17,20 @@ header{
         flex: 1;
     }
 }
+
+#questionNumber{
+    display: flex;
+}
+
+#question{
+    display: none;
+}
+
+#choices {
+    display: none;
+}
+
+#scoreLine{
+    display: none;
+}
+
