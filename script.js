@@ -11,10 +11,10 @@ let highScoreArray = [BB]; //array of highscorer objects with there scores attac
 let highScoreList = document.getElementById("highScoreList");
 if (localStorage.getItem("highScoreArray") === null) {
   localStorage.setItem("highScoreArray", JSON.stringify(highScoreArray));
-  renderHighScores();
+  //renderHighScores();
 }
 else {
-  renderHighScores();
+  //renderHighScores();
 }
 let timeLeft = 90;
 
@@ -28,6 +28,7 @@ function renderHighScores(){
     highScore.textContent = highScoreArray[i].scorer + ": " + highScoreArray[i].score + "s";
     highScoreList.appendChild(highScore);
   }
+  highScoreContainer.style.display = "block";
 }
 
 // ____________________________________________________________________________
@@ -42,23 +43,24 @@ startButton.addEventListener("click", function () {
   gameRunning = true;
   questionText.textContent = questionArray[0];
   startButton.style.display = "none";
+  highScoreContainer.style.display = "none";
   questionNumber.style.display = "block";
   timeLeft = 90;
   timerDisplay.style.display = "block";
   questionText.style.display = "block";
   choicesContainer.style.display = "grid";
-  for(var choice in choicesContainer){
-    if(choice === "null" || choice === "undefined"){
-      return;
-    }
-    if(choice.textContent !== "undefined" && choice !== "null" && choice !== ""){
-      //choice.style.display = "block"; <--- doesn't work for some reason (probably because we need to create the style class for the element first and then we can modify its display property)
-      choice.style = "display: block";
-    }
-  };
+  //for(var choice in choicesContainer){
+    //if(choice === "null" || choice === "undefined"){
+      //console.log("choice is null or undefined");
+      //return;
+    //}
+    //if(choice.textContent !== "undefined" && choice !== "null" && choice !== ""){
+      //choice.style = "display: block";
+    //}
+  //};
   questionNumber.textContent = "Question 1";
-  startTimer();
   buttonClick();
+  startTimer();
 });
 // ____________________________________________________________________________
 
@@ -68,7 +70,7 @@ function startTimer() {
     if (gameRunning === true) {
       timerDisplay.textContent = "Time Remaining: " + timeLeft + "s";
       timeLeft--;
-      currentScore.textContent = "Current Score: " + timeLeft;
+      //currentScore.textContent = "Current Score: " + timeLeft;
     }
     else {
       clearInterval(timer);
@@ -105,6 +107,8 @@ function buttonClick() {
     choice2.textContent = q1Choices[1];
     choice3.textContent = q1Choices[2];
     choice4.textContent = q1Choices[3];
+    choice3.style.display = "block";
+    choice4.style.display = "block";
   }
   if(questionNumber.textContent === "Question 2"){
     questionText.textContent = questionArray[1];
@@ -175,7 +179,7 @@ gameOver = function(){
   startButton.style.display = "block";
   //console.log(timeLeft);
   //console.log(localStorage.getItem("highScore"));
-  currentScore.textContent = "Current Score: " + timeLeft;
+  //currentScore.textContent = "Current Score: " + timeLeft;
   questionNumber.textContent = "Game Over!";
   timerDisplay.textContent = "Time Remaining:" + timeLeft + "s";
   questionText.textContent = "Your score is: " + timeLeft + "s";
@@ -207,3 +211,17 @@ gameOver = function(){
     buttonClick();
   }
 }
+let highScoreShowing = false;
+let showHighScoresButton = document.getElementById("showHighScores");
+showHighScoresButton.addEventListener("click", function () {
+  if(highScoreShowing === false){
+    highScoreShowing = true;
+    highScoreContainer.style.display = "block";
+    renderHighScores();
+  }
+  else{
+    highScoreContainer.style.display = "none";
+    console.log("high score list hidden");
+    highScoreShowing = false;
+  }
+});
